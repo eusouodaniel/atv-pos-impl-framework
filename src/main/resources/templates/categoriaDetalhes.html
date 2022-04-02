@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>Catalogo Categorias</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+
+    <main>
+        <div class="container" style="width: 60%; padding-bottom: 30px;">
+            <article>        
+                <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${categoria.nome}" ></span> </h1>
+            </article>
+        </div>    
+    </main>   
+
+</body>
+</html>
+

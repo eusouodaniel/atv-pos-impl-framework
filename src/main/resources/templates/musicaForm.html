@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>Adicionar Musicas</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+<section>
+
+    <h2 style="text-align: center">Formulário Músicas</h2>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <div>
+            <div>
+                <th:block th:include="mensagemErro"></th:block>
+            </div>
+
+            <form th:action="@{/addMusica}" method="post" th:object="${musica}" class="form">
+                <input type="hidden" name="id" th:value="${musica.id}"/>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="titulo" placeholder="Título *"
+                           th:value="${musica.titulo}">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="autor" placeholder="Autor *"
+                           th:value="${musica.autor}">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-form-label">Selecione uma categoria </label>
+                    <select id="categoria" name="categoria" th:field="*{categoria.id}" >
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"/>
+                    </select>
+                </div>
+
+                <textarea id="summernote" type="text" class="form-control" name="letra" placeholder="Letra *"
+                          th:text="${musica.letra}">
+
+                </textarea>
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('letra')}" th:errors="*{letra}"></div>
+
+                <small class="form-text text-muted">(*) Campos obrigatórios</small>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Publicar</button>
+                <a href="/musicas" class="btn btn-light" role="button" style="margin-top: 10px;">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

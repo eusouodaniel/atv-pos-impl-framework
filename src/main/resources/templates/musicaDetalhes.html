@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>Catalogo Musical</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+
+    <main>
+        <div class="container" style="width: 60%; padding-bottom: 30px;">
+            <article>        
+                <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${musica.titulo}" ></span> </h1>
+                    <p class="card-subtitle mb-2 text-muted">    
+                        <i class="material-icons">person_outline</i>
+                        <span th:text="${musica.autor}"></span>
+                        <br>
+                        <i class="material-icons">date_range</i>
+                        <span th:text="${musica.data}"></span>  
+                        <br>
+                        <span th:text="${musica.categoria.nome}"></span>          
+                    </p>           
+                    <section>
+                        <p class="card-text" style="margin-top: 40px;">
+                        <span th:utext="${musica.letra}"></span></p>
+                    </section>
+            </article>
+        </div>    
+    </main>   
+
+</body>
+</html>>
+

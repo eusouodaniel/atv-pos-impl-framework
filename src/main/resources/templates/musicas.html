@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Catalogo Musical</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+<section>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline" th:action="@{/musicas/pesquisar}" method="GET">
+                <input class="form-control mr-sm-2" type="search" name="titulo" placeholder="Titulo"
+                       aria-label="Search">
+                <div class="form-group">
+                    <label class="col-form-label">Selecione uma categoria </label>
+                    <select id="categoria" name="categoria">
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"/>
+                    </select>
+                </div>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
+            </form>
+
+            <a th:href="@{/addMusica}" class="btn btn-primary" role="button">Adicionar</a>
+        </nav>
+        <div class="card" style="margin-top: 20px;" th:each="musica : ${musicas}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="card-subtitle mb-2 text-muted">
+                            <span th:text="${musica.autor}"></span> |
+                            <span th:text="${musica.categoria.nome}"></span> |
+                            <span th:text="${musica.data}"></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <a th:href="@{/delMusica/{id}(id=${musica.id})}" class="btn btn-danger float-right"
+                           role="button">Remover</a>
+                        <a th:href="${(#mvc.url('CC#getFormEdit').arg(0, musica.id)).build()}"
+                           class="btn btn-primary active float-right " role="button" aria-pressed="true">Editar</a>
+
+                    </div>
+                </div>
+
+
+                <a th:href="${(#mvc.url('CC#getMusicaDetalhes').arg(0, musica.id)).build()}"><h4 class="card-title"
+                                                                                                 style="font-weight: bold; color: black; padding-top: 5px;">
+                    <span th:text="${musica.titulo}"></span></h4></a>
+                <span th:utext="${musica.titulo}"> </span> </h4> </a>
+
+                <p class="card-text"><span th:utext="${#strings.abbreviate(musica.letra,200)}"> </span></p>
+            </div>
+        </div>
+    </div>
+</section>
+<th:block th:include="fragments/geral :: footer"></th:block>
+</body>
+</html>

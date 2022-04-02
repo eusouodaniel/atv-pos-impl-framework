@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <title>Adicionar Categorias</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+<section>
+
+    <h2 style="text-align: center">Formulário Categorias</h2>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <div>
+            <div>
+                <th:block th:include="mensagemErro"></th:block>
+            </div>
+
+            <form th:action="@{/categorias/form}" method="post" th:object="${categoria}" class="form">
+                <input type="hidden" name="id" th:value="${categoria.id}"/>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="nome" placeholder="Nome *"
+                           th:value="${categoria.nome}">
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                </div>
+            
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+
+                <small class="form-text text-muted">(*) Campos obrigatórios</small>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Publicar</button>
+                <a href="/categorias" class="btn btn-light" role="button" style="margin-top: 10px;">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

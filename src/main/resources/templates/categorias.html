@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Catalogo Categoria</title>
+    <th:block th:include="fragments/geral.html :: headerfiles">
+    </th:block>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"></div>
+<section>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline" th:action="@{/categorias/pesquisar}" method="GET">
+                <input class="form-control mr-sm-2" type="search" name="nome" placeholder="Nome"
+                       aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
+            </form>
+
+            <a th:href="@{/categorias/form}" class="btn btn-primary" role="button">Adicionar</a>
+        </nav>
+        <div class="card" style="margin-top: 20px;" th:each="categoria : ${categorias}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="card-subtitle mb-2 text-muted">
+                            <span th:text="${categoria.nome}"></span> |
+                        </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <a th:href="@{/categorias/delete/{id}(id=${categoria.id})}" class="btn btn-danger float-right"
+                           role="button">Remover</a>
+                        <a th:href="${(#mvc.url('CC#getCategoryFormEdit').arg(0, categoria.id)).build()}"
+                           class="btn btn-primary active float-right " role="button" aria-pressed="true">Editar</a>
+
+                    </div>
+                </div>
+
+
+                <a th:href="${(#mvc.url('CC#getCategoriaDetalhes').arg(0, categoria.id)).build()}"><h4 class="card-title"
+                                                                                                 style="font-weight: bold; color: black; padding-top: 5px;">
+                    <span th:text="${categoria.nome}"></span></h4></a>
+                <span th:utext="${categoria.nome}"> </span> </h4> </a>
+            </div>
+        </div>
+    </div>
+</section>
+<th:block th:include="fragments/geral :: footer"></th:block>
+</body>
+</html>
